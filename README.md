@@ -1,5 +1,8 @@
 
 This prints images and text to a cat-shaped printer - tested towards the printer I have, which reports as an MX06.
+- has a text field (will render that text)
+- has an image field - plus zoom, brightness and contast
+
 
 A little more technically, it is:
 - a HTTP server that actually does the bluetooth contacting
