@@ -11,7 +11,7 @@ A little more technically, it is:
 
 
 This code started off from https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede 
-and an interface that loosely imitates https://github.com/NaitLee/Cat-Printer but with simpler code (that is also somewhat slower).
+and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler code (that is also somewhat slower).
 
 Requirements:
 - python3
