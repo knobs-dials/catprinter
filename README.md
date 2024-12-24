@@ -12,8 +12,8 @@ and an interface that loosely imitates https://github.com/NaitLee/Cat-Printer bu
 
 Requirements:
 - python3
-  - PIL library (for image processing)
-  - bleak library (for bluetooth)
-  - flask (could be stripped out)
+  - `pillow` library (for image processing)
+  - `bleak` library (for bluetooth)
+  - `flask` (could be stripped out)
 - bluetooth hardware (probably a laptop, though this was actually developed on a desktop with a USB dongle)
 
