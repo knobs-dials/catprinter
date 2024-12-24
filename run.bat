@@ -1,2 +1,2 @@
-python cp.py
+python catprint.py
 pause
