@@ -7,11 +7,11 @@ This prints images and text to a cat-shaped printer - tested towards the printer
 A little more technically, it is:
 - a HTTP server that actually does the bluetooth contacting
 - that serves a web page to contact itself for you to poke at 
-  (meant to be viewed from the same host, but you could make this a network service)
 
+As-is it's meant to be viewed from the same host,
+but it was written in a way that makes it easy enough 
+to make this a network service so that you can e.g. have a printer be a physical notification thing.
 
-This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) 
-and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler code (that is also somewhat slower).
 
 Requirements:
 - python3
@@ -19,4 +19,8 @@ Requirements:
   - `bleak` library (for bluetooth)
   - `flask` (could be stripped out)
 - bluetooth hardware (probably a laptop, though this was actually developed on a windows desktop with a USB dongle)
+
+
+This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) 
+and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler code (that is also somewhat slower).
 
