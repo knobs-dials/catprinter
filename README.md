@@ -36,8 +36,7 @@ As-is it's meant to be viewed from the same host,
 but it was written in a way that makes it easy enough 
 to make this a network service so that you can e.g. have a printer be a physical notification thing.
 
-This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) 
-and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler code (that is also somewhat slower).
+This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) but adds some more robustness and flexibility, and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler, slower code.
 
 
 # Notes (use)
