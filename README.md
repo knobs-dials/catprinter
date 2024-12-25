@@ -23,8 +23,10 @@ In other linux, windows, and OSX, `pip install -r requirements.txt` should work 
 
 # How (run)
 
-Run `python catprint.py`, it should run the little server and start a browser tab for you to poke at
+Run `python catprint.py`, it should run the little server and start a browser tab for you to poke at.
+
 (in windows, you can avoid opeing a cmd window by running `run.bat`)
+
 
 # What, more technically
 
@@ -47,4 +49,7 @@ This is in part because one of its uses would be to leave it on a charger and ma
 [like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge).
 
 
+# TODO
+
+Allow rotation, controlled from the UI.
 
