@@ -4,7 +4,7 @@ This prints images and text to a cat-shaped printer - tested towards the printer
 - has a text field (will render that text)
 - has an image field - plus zoom, brightness and contast
 
-![what it looks like](https://raw.githubusercontent.com/knobs-dials/catprinter/refs/heads/main/what.jpg)
+![what it looks like](what.jpg)
 
 
 # How (install)
@@ -29,7 +29,7 @@ Run `python catprinter.py`, it should run the little server and start a browser 
 # What, more technically
 
 A little more technically, it is:
-- a HTTP server that actually does the bluetooth contacting
+- a HTTP server that actually does the bluetooth communication
 - that serves a web page to contact itself for you to poke at 
 
 As-is it's meant to be viewed from the same host,
