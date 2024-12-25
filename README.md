@@ -23,7 +23,7 @@ In other linux, windows, and OSX, `pip install -r requirements.txt` should work 
 
 # How (run)
 
-Run `python catprint.py`, it should run the little server and start a browser tab for you to poke at.
+Run `python catprint.py`, it should run the little server that find the first applicable printer and start a browser tab for you to poke at to print to it.
 
 (in windows, you can avoid opening a cmd window by running `run.bat`)
 
