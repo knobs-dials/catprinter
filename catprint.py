@@ -331,7 +331,7 @@ async def connect_catprinter_and_handle_queues():
                 # TODO: set "bluetooth missing or disabled" in status? 
                 print("Bluetooth missing or disabled")
                 bluetooth_on = False
-                await asyncio.sleep(2)
+                await asyncio.sleep(2) # allow you to plug one on / turn it on
 
             elif 'No device named' in str(e): # BleakError
                 print( 'ND',str(e) )
