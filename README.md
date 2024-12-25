@@ -27,6 +27,13 @@ Run `python catprint.py`, it should run the little server and start a browser ta
 
 (in windows, you can avoid opeing a cmd window by running `run.bat`)
 
+<!-- -->
+
+As long as that server is running, the bluetooth connection stays established and the cat printer awake.
+
+This is in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing,
+[like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge).
+
 
 # What, more technically
 
@@ -39,14 +46,6 @@ but it was written in a way that makes it easy enough
 to make this a network service so that you can e.g. have a printer be a physical notification thing.
 
 This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) but adds some more robustness and flexibility, and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler, slower code.
-
-
-# Notes (use)
-
-As long as that server is running, the bluetooth connection stays established.
-
-This is in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing,
-[like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge).
 
 
 # TODO
