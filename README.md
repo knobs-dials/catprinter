@@ -10,11 +10,11 @@ This prints images and text to a cat-shaped printer - tested towards the printer
 # How (install)
 
 Requirements:
-- python3
-  - `pillow` library (for image processing)
-  - `bleak` library (for bluetooth)
-  - `flask` (could be stripped out)
-- bluetooth hardware (probably a laptop, though this was actually developed on a windows desktop with a USB dongle)
+- **python3**
+  - **`pillow`** library (for image processing)
+  - **`bleak`** library (for bluetooth)
+  - **`flask`** (could be stripped out)
+- **bluetooth hardware** (probably a laptop, though this was actually developed on a windows desktop with a USB dongle)
 
 If you don't like virtualenvs -- ubuntu now tries to make you use package installs rather than pip installs, so `apt install python3-pillow python3-bleak python3-flask`
 
