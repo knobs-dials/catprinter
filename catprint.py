@@ -327,7 +327,7 @@ async def connect_catprinter_and_handle_queues():
         except Exception as e:
             print('EEE', str(e) )
 
-            if 'Is Bluetooth turned on' in str(e): # BleakError
+            if 'Is Bluetooth turned on' in str(e)  or "No Bluetooth adapters" in str(e): # BleakError
                 # TODO: set "bluetooth missing or disabled" in status? 
                 print("Bluetooth missing or disabled")
                 bluetooth_on = False
