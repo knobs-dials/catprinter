@@ -16,9 +16,9 @@ Requirements:
   - **`flask`** (could be stripped out)
 - **bluetooth hardware** (probably a laptop, though this was actually developed on a windows desktop with a USB dongle)
 
-If you don't like virtualenvs -- for system-wide installs, ubuntu now makes you use package installs rather than pip installs, so use `apt install python3-pillow python3-bleak python3-flask`
+In ubuntu, either use a virtualenv, or do a system-wide install -- ubuntu now makes you use package installs rather than pip installs, so use `apt install python3-pillow python3-bleak python3-flask`
 
-In windows and OSX, `pip install -r requirements.txt` should work - assuming you already had python.
+In other linux, windows, and OSX, `pip install -r requirements.txt` should work - assuming you already had python.
 
 
 # How (run)
