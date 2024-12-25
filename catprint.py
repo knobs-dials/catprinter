@@ -3,11 +3,12 @@
 # - look for a specific MAC address, in case you have multiple and want to use each for a specifc purpose
 # CONSIDER:
 # - class-ize the communication
+# - make JS more injection-safe (because innerHTML)
 # CHECK: 
 # - don't build up notification requests before connect
 
 
-import sys, time, asyncio, threading, traceback, io
+import sys, time, asyncio, threading, traceback, io, socket, contextlib
 
 from bleak import BleakClient, BleakScanner
 from bleak.exc import BleakError
@@ -18,7 +19,7 @@ import PIL.ImageChops
 from flask import Flask, request, jsonify
 
 
-########################### constants, variables
+########################### constants, variables, and helpers
 
 # Commands
 RetractPaper           = 0xA0  # Data: Number of steps to go back
@@ -50,9 +51,11 @@ PrinterCharacteristic  = "0000AE01-0000-1000-8000-00805F9B34FB"
 NotifyCharacteristic   = "0000AE02-0000-1000-8000-00805F9B34FB"
 
 #specific_macs          = ()
-accepted_printer_names = ( 'MX06', 'GB01' )   # note: probably a handful more will work with this code
+accepted_printer_names = (
+    'MX06',   # tested because I have this one
+    'GB01','GB02','GB03','GT01','YT01','MX05','MX08','MX10', # mentioned at https://www.devzery.com/post/cat-printers and presumed to be be compatible enough, but may vary in some details?
+)
 
-webport                = 8081
 bluetooth_on           = False
 device                 = None
 awaiting_status        = False
@@ -63,8 +66,15 @@ command_queue          = []
 image_queue            = []
 text_queue             = []
 
+def find_free_port():
+    # from https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number
+    with contextlib.closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+        s.bind(('', 0)) # this basically asks the OS
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        return s.getsockname()[1]
 
-########################### helpers
+webport = find_free_port()
+
 
 def trim_image(im):
     bg = PIL.Image.new(im.mode, im.size, (255,255,255))
@@ -247,7 +257,7 @@ async def connect_catprinter_and_handle_queues():
                     break
             await scanner.stop()
             if not device:
-                raise BleakError(f"No device named %s could be found."%(' or '.join(accepted_printer_names)))
+                raise BleakError(f"No device named %s could be found."%(' or '.join(sorted(accepted_printer_names))))
 
             last_communication = time.time()
             # okay, we have a device to contact, do so:
@@ -260,8 +270,8 @@ async def connect_catprinter_and_handle_queues():
                     while 1:
                         try:
                             # we want to ensure a steady stream of status notification within the scope of a connection
-                            # (also if we care to listen to xoff and such)
-                            #print( "waiting for notif in connection" )
+                            # (also if we care to listen to xoff and such, though that seems not to work?)
+                            #print( " waiting for notif in connection" )
                             awaiting_status = True
                             await client.write_gatt_char(PrinterCharacteristic, format_message(GetDevState, [0x00]) + format_message(ControlLattice, FinishLattice))
                             while awaiting_status: # maybe timeout, otherwise this may be a hang-forver.
@@ -303,11 +313,22 @@ async def connect_catprinter_and_handle_queues():
 
                             elif len(image_queue) > 0:
                                 print( "Taking image off queue to print" )
-                                image = image_queue.pop(0)
+                                image, rotate = image_queue.pop(0)
+
                                 if image is not None:
+                                    image = ensure_pilim(image)
+
+                                    if rotate == 'yes': # rotate 90 degrees always
+                                        image = image.rotate(90, expand=True)
+                                    elif rotate == 'long': # rotate 90 degrees if it's wider than it is high
+                                        w,h = image.size
+                                        if w>h:
+                                            image = image.rotate(90, expand=True)
+
                                     command_queue.append( image_to_drawcommands( None, feed_amount=-50) )
                                     command_queue.append( image_to_drawcommands( image ) )
-                                    #strips = image_strips( ensure_pilim(image) )
+                                    # the idea was that maybe we get status more often if we print in small strips
+                                    #strips = image_strips( image )
                                     #print(strips)
                                     #for stripim in reversed( strips ):
                                     #    command_queue.append( image_to_drawcommands( stripim ) )
@@ -456,12 +477,11 @@ def print_text():
 def print_image():
     ' take image, queue for the printer code to pick up '
     global command_queue
-    #print(request.files)
-
     imagebytes = request.files.get('imagefile').stream.read()
-    #print('image: %r'%imagebytes)
+    rotate = request.form.get('rotate','no')
+    print('image: %s bytes, rotate:%s'%( len(imagebytes), rotate))
     if imagebytes is not None:
-        image_queue.append( imagebytes )
+        image_queue.append( (imagebytes, rotate) )
         return "Sent to printer queue"
     else:
         return "no image :("
@@ -502,16 +522,16 @@ def catch_all():
     <input type="file" id="inp" style="display:none" name="file"/><label for="inp"><span style="margin:0em 0em 1em" class="button">Choose client-side image file</span></label><br/>
     <canvas id="canvas" style="max-width:20em; border:4px dotted black"></canvas><br/>
     <table style="padding:1em 0em">
-        <tr><th>Zoom</th><td><input id="z" type="range" min="0" max="800" value="0"></td><td><span id="zv"></span>%</td></tr>
-        <tr><th>Brightness</th><td><input id="b" type="range" min="80" max="250" value="115"></td><td><span id="bv"></span>%</td></tr>
-        <tr><th>Contrast</th><td><input id="c" type="range" min="70" max="250" value="135"></td><td><span id="cv"></span>%</td></tr>
+        <tr><th>Zoom</th><td><input id="z" type="range" min="0" max="800" value="0"></td><td><span id="zv"></span>%</td>           <td>&nbsp;</td> <th>Rotate when printing?</th> <td><input type="radio" name="rotate" id="long" value="long" checked="checked" ><label for="long">if wider than high</label></td> </tr>
+        <tr><th>Brightness</th><td><input id="b" type="range" min="80" max="250" value="115"></td><td><span id="bv"></span>%</td>  <td></td> <td></td>       <td><input type="radio" name="rotate" id="yes"  value="yes"><label for="yes">yes</label></td> </tr>
+        <tr><th>Contrast</th><td><input id="c" type="range" min="70" max="250" value="135"></td><td><span id="cv"></span>%</td>    <td></td> <td></td>       <td><input type="radio" name="rotate" id="no"   value="no"><label for="no">no</label></td> </tr>
     </table>
     <button class="button" id="printimage">Print image</button>
   </div></div>
 
 
 <script>
-let font_size=30;
+let font_size  = 30;
 
 let loaded_image;
 let filtertext = 'grayscale()';
@@ -533,7 +553,6 @@ function reset_text_values() {  /* sort of pointless, but for consistency */
 }
 
 function update_sliders() {     /* set sliders from variables. Mostly to avoid page-load inconsistencies, also used (after the above resets) after image load*/
-
     document.getElementById('f').value = font_size;
     document.getElementById('z').value = zoom;
     document.getElementById('b').value = brightness;
@@ -550,11 +569,11 @@ function update_from_form() { /* We call this after an interaction to set the ne
 }
 
 
-function update_status() { /* call HTTP endpoint, show useful status things on our page */
+function update_status() {     /* fetch server status, show useful status things on our page */
     fetch("./status")
         .then( function (result) { return result.json() } )
-        .then( function (ob)   { 
-            var s1 = '', s2 = '', s3 = '', s4 = '';
+        .then( function (ob)     { 
+            var s1='', s2='', s3='', s4='';
             if (!ob.bluetooth_on) {
                 s1 = '<b>bluetooth hardware missing or disabled?</b>';
             } else if (ob.printer_found && ob.lastcomm_agosec < 3) {
@@ -574,13 +593,16 @@ function update_status() { /* call HTTP endpoint, show useful status things on o
             document.getElementById('s4').innerHTML = s4;
         } )
         .catch(function(error) { // for now assume this is a networkerror because you've stopped that server
-            document.getElementById('s4').innerHTML = '<span style="color:red">'+error+'</span>'; //TODO: make that safer
+            if ( (''+error).includes('NetworkError'))
+              document.getElementById('s4').innerHTML = '<span style="color:red">You seem to have stopped the catprint.py server</span>';
+            else
+              document.getElementById('s4').innerHTML = '<span style="color:red">'+error+'</span>'; //TODO: make that safer
             console.log(error);
         });
 }
 
 
-function img_load() { /* callback when the input-file is set: consider (makes the browser try to see it), reset and propagate filter values, show */ 
+function img_load() {          /* callback for when the image file is set/changed:  makes the browser try to parse it as an image, reset and propagate filter values, show in canvas element */ 
   console.log('img_load', this);
   loaded_image = this;
   reset_image_values();
@@ -589,7 +611,7 @@ function img_load() { /* callback when the input-file is set: consider (makes th
 }
 
 
-function draw_loaded_image() { /* mostly just canvas drawImage, but  */ 
+function draw_loaded_image() { /* mostly just canvas's drawImage */ 
   if (loaded_image == undefined) {
     console.log('no image loaded yet')
   } else {
@@ -617,12 +639,14 @@ function draw_loaded_image() { /* mostly just canvas drawImage, but  */
   }
 }
 
-function img_load_failed() {
-  console.error("The provided file couldn't be loaded as an Image media");
-  // maybe add another table cell to say this?
+function img_load_failed() {   /*  */
+  console.error("The provided file couldn't be loaded as Image media");
+  // maybe add another table cell to communiate this more clearly?
 }
 
 
+
+// main  onload and do-once stuff:
 
 /* register handlers to pick up slider bar changes, putting the new value in global variables */
 document.getElementById('f').onchange = function(e) { font_size = this.value;  update_from_form(); }
@@ -657,14 +681,20 @@ document.getElementById('printimage').onclick = function(e) {
         console.log('blob',blob);
         let formData = new FormData();
         formData.append("imagefile", blob);
+        // read out radiobutton state
+        rotate = 'no';
+        var rotateradios = document.getElementsByName('rotate');
+        for(var i = 0; i < rotateradios.length; i++) {
+            if(rotateradios[i].checked)
+                rotate = rotateradios[i].value;
+        }
+        formData.append("rotate", rotate);
         fetch("./print-image", { method: "post", body: formData })
           .then( function (result) { return result.text() } )
           .then( function (text)   { console.log(text)    } );
     });
 }
 
-
-// Basically onload calls:
 reset_image_values();
 reset_text_values();
 update_sliders();
