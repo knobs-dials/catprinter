@@ -31,8 +31,8 @@ Run `python catprint.py`, it should run the little server and start a browser ta
 
 As long as that server is running, the bluetooth connection stays established and the cat printer awake.
 
-This is in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing,
-[like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge).
+This is in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing, 
+[like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge) - see also the original code mentioned below.
 
 
 # What, more technically
