@@ -499,7 +499,7 @@ def catch_all():
   </div></div>
  
   <div style="max-width:60em; margin:1em auto; background-color:#ddd; border-radius:1em"><div style="padding:2em">
-    <input type="file" id="inp" style="display:none" name="file"/><label for="inp"><span style="margin:0em 0em 1em" class="button">Choose client-side file</span></label><br/>
+    <input type="file" id="inp" style="display:none" name="file"/><label for="inp"><span style="margin:0em 0em 1em" class="button">Choose client-side image file</span></label><br/>
     <canvas id="canvas" style="max-width:20em; border:4px dotted black"></canvas><br/>
     <table style="padding:1em 0em">
         <tr><th>Zoom</th><td><input id="z" type="range" min="0" max="800" value="0"></td><td><span id="zv"></span>%</td></tr>
