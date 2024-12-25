@@ -40,3 +40,12 @@ This code started off from [this gist](https://gist.github.com/mpomery/6514e521d
 and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler code (that is also somewhat slower).
 
 
+# Notes (use)
+
+As long as that server is running, the bluetooth connection stays established.
+
+This is in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing,
+[like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge).
+
+
+
