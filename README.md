@@ -2,7 +2,7 @@
 
 This prints images and text to a cat-shaped printer - tested towards the printer I have, which reports as an MX06.
 - has a text field (will render that text)
-- has an image field - plus zoom, brightness and contast
+- has an image field - plus zoom, brightness, contast, and rotation options
 
 ![what it looks like](what.jpg)
 
@@ -45,6 +45,9 @@ but it was written in a way that makes it easy enough
 to make this a network service so that you can e.g. have a printer be a physical notification thing.
 
 This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) but adds some more robustness and flexibility, and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler, slower code.
+
+Most image processing is done on the browser side; the resulting image is then sent to the backend.
+
 
 
 # TODO
