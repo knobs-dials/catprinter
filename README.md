@@ -25,7 +25,7 @@ In other linux, windows, and OSX, `pip install -r requirements.txt` should work 
 
 Run `python catprint.py`, it should run the little server and start a browser tab for you to poke at.
 
-(in windows, you can avoid opeing a cmd window by running `run.bat`)
+(in windows, you can avoid opening a cmd window by running `run.bat`)
 
 <!-- -->
 
