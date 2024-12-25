@@ -18,7 +18,7 @@ Requirements:
 
 If you don't like virtualenvs - ubuntu tries to push you to package installs rather than pip installs, so `apt install python3-pillow python3-bleak python3-flask`
 
-In windows, `pip install -r requirements.txt` (which is what `install-pip.bat` contains) should work.
+In windows and OSX, `pip install -r requirements.txt` should work - assuming you already had python.
 
 
 # How (run)
