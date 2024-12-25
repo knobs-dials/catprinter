@@ -37,8 +37,8 @@ This is in part because one of its uses would be to leave it on a charger and ma
 # What, more technically
 
 A little more technically, it is:
-- a HTTP server that actually does the bluetooth communication, and some image conversion
-- that serves a web page, to contact itself for you to poke at 
+- The server both handles bluetooth communication, image conversion, and is a HTTP server...
+- ...that serves a web page, to contact itself for you to poke at 
 
 As-is it's meant to be viewed from the same host,
 but it was written in a way that makes it easy enough 
