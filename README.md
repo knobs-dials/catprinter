@@ -21,7 +21,7 @@ If you don't like virtualenvs - ubuntu tries to push you to package installs rat
 In windows, `pip install -r requirements.txt` (which is what `install-pip.bat` contains) should work.
 
 
-# How (use)
+# How (run)
 
 Run `python catprinter.py`, it should run the little server and start a browser for you to poke at
 
