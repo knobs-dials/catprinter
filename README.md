@@ -23,7 +23,7 @@ In windows, `pip install -r requirements.txt` (which is what `install-pip.bat` c
 
 # How (run)
 
-Run `python catprinter.py`, it should run the little server and start a browser for you to poke at
+Run `python catprint.py`, it should run the little server and start a browser for you to poke at
 (in windows, you can avoid running a cmd by using the `run.bat` file)
 
 # What, more technically
