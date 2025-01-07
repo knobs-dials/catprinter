@@ -6,9 +6,10 @@ This prints images and text to a cat-shaped printer.
 
 ![what it looks like](what.jpg)
 
-Tested on win, lin, and osx; 
-tested towards the printer I have, which reports as an MX06, and the base bluetooth code this is based on mentioned a handful of others;
-not yet tested on all browsers.
+Tested 
+* on win, lin, and osx; 
+* towards the printer I have, which reports as an MX06, and the base bluetooth code this is based on mentioned a handful of others;
+* not yet tested on all browsers.
 
 
 # How (install)
