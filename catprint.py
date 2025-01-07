@@ -67,6 +67,7 @@ image_queue            = []
 text_queue             = []
 
 def find_free_port():
+    ' Try to find a TCP port not currently used ' 
     # from https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number
     with contextlib.closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
         s.bind(('', 0)) # this basically asks the OS
@@ -86,6 +87,7 @@ def trim_image(im):
 
 
 def image_strips(im):
+    ' Takes a PIL Image, cuts it into strips at most stripheight high; returns a list of PIL Images' 
     stripheight = 25
     ret = []
     w,h = im.size
@@ -121,7 +123,8 @@ def generate_text_image(text, font_name="FreeSans.ttf", font_size=30):
 
 
 def ensure_pilim(pil_or_bytes):
-    if type(pil_or_bytes) == PIL.Image.Image: 
+    ' Takes what could be a PIL image, or file contents that PIL might open; returns a PIL image '
+    if type(pil_or_bytes) == PIL.Image.Image: # TODO: use isinstance
         return pil_or_bytes
     else:
         pil_or_bytes = io.BytesIO(pil_or_bytes)
