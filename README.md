@@ -30,11 +30,11 @@ In other linux, windows, and OSX, `pip install -r requirements.txt` should work 
 
 Run `python catprint.py`, it should run the little server that find the first applicable printer and start a browser tab for you to poke at to print to it.
 
-(in windows, you can avoid opening a cmd window by running `run.bat`)
+(in windows, you can avoid opening a cmd window first by double-clicking  `run.bat`)
 
 <!-- -->
 
-As long as that server is running, the bluetooth connection stays established and the cat printer awake.
+As long as that server is running, it tries to keep the bluetooth connection established - and the cat printer awake.
 This is in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing, 
 [like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge) - see also the original code mentioned below.
 
