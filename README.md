@@ -28,9 +28,9 @@ In other linux, windows, and OSX, `pip install -r requirements.txt` should work 
 
 # How (run)
 
-The computer where you run `python catprint.py` (explicitly python3 on computers that have both py2 and py3) will run the little server that 
-- start a browser tab for you to poke at this server
-- uses local bluetooth hardware to find the first applicable printer (reports connection state in the browser tab)
+The computer where you run `python catprint.py` (explicitly python3 on computers that have both py2 and py3) will 
+- run the little server that uses local bluetooth hardware to find the first applicable printer (reports connection state in the browser tab)
+- starts a browser tab for you to poke at this server
 
 (in windows, you can avoid opening a cmd window first by double-clicking  `run.bat`)
 
