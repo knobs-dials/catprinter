@@ -8,7 +8,7 @@ This prints images and text to a cat-shaped printer.
 
 Tested 
 * on win, lin, and osx; 
-* towards the printer I have, which reports as an MX06, and the base bluetooth code this is based on mentioned a handful of others;
+* towards the printer I have, which reports as an MX06, and the base bluetooth code this is based on mentions a handful of others;
 * not yet tested on all browsers.
 
 
@@ -28,7 +28,7 @@ In other linux, windows, and OSX, `pip install -r requirements.txt` should work 
 
 # How (run)
 
-The computer where you run `python catprint.py` will run the little server that 
+The computer where you run `python catprint.py` (explicitly python3 on computers that have both py2 and py3) will run the little server that 
 - start a browser tab for you to poke at this server
 - uses local bluetooth hardware to find the first applicable printer (reports connection state in the browser tab)
 
