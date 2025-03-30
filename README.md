@@ -44,7 +44,7 @@ This is in part because one of its uses would be to leave it on a charger and ma
 # What, more technically
 
 A little more technically, it is:
-- The server both handles bluetooth communication, image conversion, and is a HTTP server...
+- the server handles bluetooth communication, image conversion, and is a HTTP server...
 - ...that serves a web page, to contact itself for you to poke at 
 
 As-is it's meant to be viewed from the same host,
