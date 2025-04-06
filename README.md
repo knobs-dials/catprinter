@@ -34,13 +34,6 @@ This will
 - start the little server that uses local bluetooth hardware to find the first applicable printer (reports its connection state in the browser tab)
 - starts a browser tab for you to poke at this server
 
-<!-- -->
-
-As long as that server is running, it tries to keep the bluetooth connection established - and the cat printer awake.
-This in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing, 
-[like the author of that gist did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge) - see also the original code mentioned below.
-
-
 # What, more technically
 
 A little more technically, it is:
@@ -51,10 +44,14 @@ As-is it's meant to be viewed from the same host,
 but it was written in a way that makes it easy enough 
 to make this a network service so that you can e.g. have a printer be a physical notification thing.
 
-This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) but adds some more robustness and flexibility, and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) but with simpler, slower code.
+As long as that server is running, it tries to keep the bluetooth connection established - and the cat printer awake.
+This in part because one of its uses would be to leave it on a charger and make it the already-mentioned physical notification thing, 
+[like the author of some of the code we used did](https://dev.to/mitchpommers/my-textable-cat-printer-18ge) - see also the original code mentioned below.
+
+This code started off from [this gist](https://gist.github.com/mpomery/6514e521d3d03abce697409609978ede) but adds some more robustness and flexibility,
+and an interface that loosely imitates [this project's interface](https://github.com/NaitLee/Cat-Printer) (though with simpler, slower code).
 
 Most image processing is done on the browser side; the resulting image is then sent to the backend.
-
 
 
 # TODO
