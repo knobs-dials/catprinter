@@ -28,7 +28,7 @@ In other linux, windows, and OSX, `pip install -r requirements.txt` should work 
 
 # How (run)
 
-Find a computer that can talk bluetooth, and run `python catprint.py`.  (on windows, you can avoid opening a cmd window first by double-clicking  `run.bat`)
+Find a computer that can talk bluetooth, and run `python catprint.py`.  (on windows, assuming you have a python installed, you can avoid opening a cmd window first by double-clicking  `run.bat`)
 
 This will 
 - start the little server that uses local bluetooth hardware to find the first applicable printer (reports its connection state in the browser tab)
