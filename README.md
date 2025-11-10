@@ -8,7 +8,7 @@ This prints images and text to a cat-shaped printer.
 
 Tested 
 * on win, lin, and osx; 
-* towards the printer I have, which reports as an MX06, and the base bluetooth code this is based on mentions a handful of others;
+* towards the printer I have, which reports as an MX06 (and the bluetooth code this is based on mentions a handful of others)
 * not yet tested on all browsers.
 
 
@@ -59,5 +59,6 @@ Most image processing is done on the browser side; the resulting image is then s
 # TODO
 
 Allow rotation, controlled from the UI.
+
 
 
