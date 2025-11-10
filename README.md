@@ -1,7 +1,7 @@
 # What
 
 This prints images and text to a cat-shaped printer. 
-- lets you input text field (will render that text)
+- lets you input text (will render that text as image with a font first)
 - lets you input images - plus zoom, brightness, contast, and rotation options
 
 ![what it looks like](what.jpg)
@@ -59,4 +59,5 @@ Most image processing is done on the browser side; the resulting image is then s
 # TODO
 
 Allow rotation, controlled from the UI.
+
 
