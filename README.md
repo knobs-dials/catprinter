@@ -24,6 +24,7 @@ Requirements:
 In ubuntu, either use a virtualenv, or do a system-wide install -- ubuntu now makes you use package installs rather than pip installs, so try `apt install python3-pillow python3-bleak python3-flask`
 
 In other linux, windows, and OSX, `pip install -r requirements.txt` should work - assuming you already had python.
+Preferably in a virualenv.
 
 
 # How (run)
@@ -59,6 +60,7 @@ Most image processing is done on the browser side; the resulting image is then s
 # TODO
 
 Allow rotation, controlled from the UI.
+
 
 
 
