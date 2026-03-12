@@ -250,13 +250,13 @@ async def connect_catprinter_and_handle_queues():
 
             # Scan for BLE devices (up to 5 seconds each time), see if we find one called MX06
             print("scan for printer")
-			try:
-				# in earlier versions:
+            try:
+                # in earlier bleak versions:
                 scanner = BleakScanner( )
                 scanner.register_detection_callback( detect_catprinter )
-			except Exception as e:
-				# now:
-				scanner = BleakScanner( detect_catprinter )
+            except Exception as e:
+                # now:
+                scanner = BleakScanner( detect_catprinter )
 
             await scanner.start()
             bluetooth_on = True
